@@ -33,9 +33,9 @@ from narwhals.typing import IntoDataFrameT, DataFrameT
 df = pl.DataFrame({"a": [1, 2, 3]})
 
 
-def func(df: IntoDataFrameT) -> IntoDataFrameT:
-    df = nw.from_native(df, eager_only=True)
-    return nw.to_native(df.select(b=nw.col("a")))
+def func(df_native: IntoDataFrameT) -> IntoDataFrameT:
+    df = nw.from_native(df_native, eager_only=True)
+    return df.select(b=nw.col("a")).to_native()
 
 
 reveal_type(func(df))
